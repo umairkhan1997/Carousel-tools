@@ -1,0 +1,98 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+/* equal card height */
+.row-equal > div[class*='col-'] {
+  display: flex;
+  flex: 1 0 auto;
+}
+
+.row-equal .card {
+ width: 100%;
+}
+
+/* ensure equal card height inside carousel */
+.carousel-inner>.row-equal.active, 
+.carousel-inner>.row-equal.next, 
+.carousel-inner>.row-equal.prev {
+  display: flex;
+}
+
+/* prevent flicker during transition */
+.carousel-inner>.row-equal.active.left, 
+.carousel-inner>.row-equal.active.right {
+  opacity: 0.5;
+  display: flex;
+}
+
+
+/* control image height */
+.card-img-top-250 {
+  max-height: 250px;
+  overflow:hidden;
+}
+
+.div {
+  width: 200px;
+  height: 40px;
+  top:-10px;
+  position: relative;
+  background: #3f51b5;text-align: center;color: floralwhite;
+}
+.div::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  
+  width: 0;
+  height: 0;
+  border-left: 20px solid white;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;text-align: center;color: floralwhite;
+}
+.div::before {
+  content: "";
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 20px solid #3f51b5;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;text-align: center;color: floralwhite;
+}
+.hfive{
+  padding-top: 10px;
+ 
+}
+
+.iframes{
+  width:'40%';height:'50%';margin-left:'10%';
+  
+}
+
+.buttonSet{
+  flex-direction: row;
+  justify-content: space-around;
+}
