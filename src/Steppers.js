@@ -14,9 +14,11 @@ import { carousalInfo } from './store/action/action';
 import ThemeOne from './Blog_theme_one/App'
 import ThemeTwo from './theme_two_three/theme_2'
 import ThemeThree from './theme_two_three/theme-3'
+import Config from './component/Configs'
+import Themess from './component/Themess'
 const styles = theme => ({
     root: {
-      width: '90%',
+      width: '100%',
     },
     button: {
       marginRight: theme.spacing(1),
@@ -28,7 +30,7 @@ const styles = theme => ({
   });
 
   function getSteps() {
-    return ['Create Carousel', 'Select Data', 'Select Theme','Embed In your Webpage'];
+    return ['Create Carousel', 'Select Data', 'Select Theme','Theme Configure','Embed In Webpage'];
   }
   
 
@@ -82,6 +84,10 @@ const styles = theme => ({
           return <SelectData back={this.handleBack} next={this.handleNext}/>;
         case 2:
           return <SelectTheme back={this.handleBack} next={this.handleNext}/>;
+          case 3:
+            return <Config back={this.handleBack} next={this.handleNext}/>
+            case 4:
+                return <Themess back={this.handleBack} next={this.handleNext}/>
         default:
           return 'Unknown step';
       }
@@ -127,19 +133,21 @@ const styles = theme => ({
             this.setActiveStep(0);
         };
     return (
-      <div className={classes.root}>
-        <Stepper activeStep={this.state.activeStep}>
+      <div style={{background:'white'}}>
+        <div style={{marginTop:50}}>
+
+        <Stepper activeStep={this.state.activeStep} >
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
             // if (isStepOptional(index)) {
-            //   labelProps.optional = <Typography variant="caption">Optional</Typography>;
-            // }
-            // if (isStepSkipped(index)) {
-            //   stepProps.completed = false;
-            // }
-            return (
-              <Step key={label} {...stepProps}>
+              //   labelProps.optional = <Typography variant="caption">Optional</Typography>;
+              // }
+              // if (isStepSkipped(index)) {
+                //   stepProps.completed = false;
+                // }
+                return (
+                  <Step key={label} {...stepProps}>
                 <StepLabel {...labelProps}>
                 <div 
                 style={{background:this.state.activeStep>=index?'#3f51b5':'grey'}}
@@ -154,6 +162,7 @@ const styles = theme => ({
             );
           })}
         </Stepper>
+          </div>
         <div>
           {this.state.activeStep === steps.length ? (
             <div>

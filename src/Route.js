@@ -7,6 +7,8 @@ import SelectTheme from './SelectTheme'
 import StartPage from './StartPage'
 import Signup from './component/Signup';
 import SignIn from './component/Signin';
+import Setting from './component/Setting'
+import Manage from './component/Manage'
 // import Main from './components/main';
 // import Signup from './components/signup';
 // import Login from './components/login';
@@ -14,9 +16,9 @@ import SignIn from './component/Signin';
 import history from '../src/history'
 // import Slider from './Component/Slider';
 import Verify from './component/Verify';
+import Profile from './component/Profile'
 // import firebase from 'firebase'
 // import Notfound from './components/notFound';
-
 
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -81,16 +83,20 @@ class Routers extends Component {
             <Router history={history}>
                     <Switch>
                     
-                        <Route exact path='/'  component={Signup}/>
-                        <Route exact path='/Verify'  component={Verify}/>
-                        <Route path='/Signin'  component={SignIn}/>
-                        <Route path ='/StartPage' component={StartPage}/>
-                        <Route exact path='/stepper'  component={Stepper} />
+                        <Route exact path='/'  component={SignIn}/>
+                        <Route  path='/Signup'  component={Signup}/>
+                        <Route path='/Verify'  component={Verify}/>
+                        <Route  path ='/StartPage' component={StartPage}/>
+                        <Route path='/Manage' component={Manage}/>
+                        <Route path='/Profile' component={Profile} />
+                        <Route path='/Setting' component={Setting}/>
+                        <Route path='/stepper'  component={Stepper} />
                         {/* <Route exact path='/'  render={(routesProps)=> <StartPage {...routesProps} history={history}/> }/> */}
                         {/* <Route exact path='/stepper' render={(routesProps)=> <HorizontalLinearStepper {...routesProps} history={history}/> }/> */}
                         <Route  path="/App" component={App} />
                         <Route  path="/SelectData" component={SelectData} />
                         <Route path='/SelectTheme' component={SelectTheme}/>
+                     
                         {/* <Route exact path="/Next" component={Next} /> */}
                         {/* <PrivateRoute authed={this.state.authed} path="/main" component={Main} />
                         <PrivateRoute2 authed={this.state.authed} path='/user' component={User} />

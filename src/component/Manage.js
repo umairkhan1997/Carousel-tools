@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './App.css';
+import '../App.css';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -22,7 +22,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Settings from '@material-ui/icons/Settings';
 import Person from '@material-ui/icons/Person';
-
+import Stepper from '../Steppers'
 
 const drawerWidth = 240;
 
@@ -79,7 +79,7 @@ const styles = theme=> ({
   },
 });
 
- class StartPage extends Component {
+ class Setting extends Component {
 constructor(props){
     super(props);
     this.state={
@@ -107,15 +107,18 @@ handleDrawerClose()
 
 Create()
 {
-  this.props.history.push('/Manage');
+  this.props.history.push('/Stepper');
 
 }
+StartPage=()=>{
+    this.props.history.push('/StartPage');
+}
 Profile=()=>{
-  this.props.history.push('/Profile');
-}
-Setting=()=>{
-  this.props.history.push('/Setting');
-}
+    this.props.history.push('/Profile');
+  }
+  Setting=()=>{
+    this.props.history.push('/Setting');
+  }
   render(){
 const {classes}=this.props;
   return (
@@ -148,12 +151,12 @@ const {classes}=this.props;
         <Divider /> */}
             <Divider style={{marginTop:20}}/>
         <List>            
-            <ListItem button  style={{marginTop:45}}>
-              <ListItemIcon> <MailIcon color='primary'/></ListItemIcon>
+            <ListItem button onClick={this.StartPage.bind(this)} style={{marginTop:45}}>
+              <ListItemIcon> <MailIcon /></ListItemIcon>
               {/* <ListItemText style={{fontSize:16,fontWeight:'600'}}>Manage</ListItemText> */}
               <ListItemText
         disableTypography
-        primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>Home</Typography>}
+        primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Home</Typography>}
       />
             </ListItem>
         </List>
@@ -170,11 +173,11 @@ const {classes}=this.props;
         </List>
         <Divider style={{marginTop:-5}}/>
         <List>            
-            <ListItem button onClick={this.Create} style={{marginTop:5}}>
-              <ListItemIcon> <MailIcon /></ListItemIcon>
+            <ListItem button  style={{marginTop:5}}>
+              <ListItemIcon> <MailIcon color='primary'/></ListItemIcon>
               <ListItemText
         disableTypography
-        primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Manage</Typography>}
+        primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>Manage</Typography>}
       />
 {/*               
               <ListItemText >Manage</ListItemText> */}
@@ -206,9 +209,9 @@ const {classes}=this.props;
           [classes.contentShift]:this.state.open,
         })}
       >
- <div style={{marginTop:'30%',marginLeft:'40%' }}>
-   <h1>Home Page</h1>
-      </div>
+          <div style={{marginTop:20}}>
+<Stepper />
+          </div>
       </main>
     </div>
   
@@ -228,5 +231,5 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(StartPage));
+export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(Setting));
 

@@ -107,6 +107,9 @@ class Signup extends Component {
       }
 
   }
+  GoSignIn=()=>{
+    this.props.history.push('/');
+}
   render() {
     const { classes } = this.props;
     return (
@@ -185,12 +188,12 @@ class Signup extends Component {
                       onChange={(e) => { this.setState({ password: e.target.value }) }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <FormControlLabel
                       control={<Checkbox value="allowExtraEmails" color="primary" />}
                       label="I want to receive inspiration, marketing promotions and updates via email."
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Button
                   type="button"
@@ -201,6 +204,9 @@ class Signup extends Component {
                   onClick={this.signup}>
                   Sign Up
           </Button>
+          <Typography onClick={this.GoSignIn.bind(this)} component="h6" variant="h6" style={{fontSize:14,color:'#3f51b5',fontWeight:'600',textAlign:'center'}}>
+                Already Joined Us , Sign In ?
+        </Typography>
                 <Grid container justify="flex-end">
 
 
@@ -208,7 +214,7 @@ class Signup extends Component {
               </form>
             </div>
             <Box mt={5}>
-              <Copyright />
+              {/* <Copyright /> */}
             </Box>
           </Container>
  

@@ -12,6 +12,9 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import img1 from './images/themeone.PNG'
 import img2 from './images/themetwo.PNG'
 import img3 from './images/themethree.PNG'
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 const tutorialSteps = [
     {
       label: 'Theme One ',
@@ -57,7 +60,9 @@ class SelectTheme extends Component {
   constructor(props){
     super(props)
     this.state = {
-        activeStep:0
+        activeStep:0,
+        colorback:'white',
+         selectedTheme:0
     }
 
 }
@@ -75,15 +80,26 @@ this.setState({
         activeStep:this.state.activeStep - 1
     })  
   };
-
+  SelectThemes=()=>{
+  // this.props.next()
+  this.setState({
+    colorback:'gray'
+  })
+}
+handlerH=(event)=>{
+console.log(event)
+this.setState({
+  selectedTheme:event
+})
+}
   render(){
-  console.log(this.props,'propsssssssss')
+  console.log(this.state.selectedTheme,'selectedTheme')
   const {classes}=this.props;
   const maxSteps = tutorialSteps.length;
   return (
    
-    <div >
- <div className={classes.root}>
+    <div style={{background:this.state.colorback}}>
+ {/* <div className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
         <Typography>{tutorialSteps[this.state.activeStep].label}</Typography>
       </Paper>
@@ -100,18 +116,43 @@ this.setState({
         nextButton={
           <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === maxSteps - 1}>
             Next
-            {/* {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />} */}
           </Button>
         }
         backButton={
           <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
-            {/* {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />} */}
+         
             Back
           </Button>
         }
       />
-    </div>
+    </div> */}
 
+
+<div style={{width:"80%" ,marginLeft:'12%', height:'50%'}}>
+
+<Carousel selectedItem={this.state.selectedTheme} onClickThumb={this.handlerH.bind(this)}>
+<div style={{height:'100%'}} onClick={this.SelectThemes.bind(this)} > 
+  <img src={require("./images/themeone.PNG")} style={{height:'100%'}} />
+  <p className="legend">Theme 1</p>
+</div>
+<div style={{height:'100%'}} onClick={this.props.next}>
+  <img src= {require("./images/themetwo.PNG")} style={{height:'100%'}}/>
+  <p className="legend">Theme 2</p>
+</div>
+<div style={{height:'100%'}} onClick={this.props.next}>
+  <img src={require("./images/themethree.PNG")} style={{height:'100%'}}/>
+  <p className="legend">Theme 3</p>
+</div>
+<div style={{height:'100%'}} onClick={this.props.next}>
+  <img src={require("./images/themeone.PNG")} style={{height:'100%'}}/>
+  <p className="legend">Theme 4</p>
+</div>
+<div style={{height:'100%'}} onClick={this.props.next}>
+  <img src={require("./images/themetwo.PNG")} style={{height:'100%'}}/>
+  <p className="legend">Theme 5</p>
+</div>
+</Carousel>
+</div>
 
 
 
@@ -119,14 +160,14 @@ this.setState({
     <div>
 
         <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{width:'20%',marginRight:'4.5%',marginLeft:'7.2%',marginTop:20}}
+    variant="contained" color="primary"  size="large"  style={{float:'left',width:'20%',borderRadius:20,marginLeft:'2%',marginTop:20}}
     // className={classes.button}
     onClick={this.props.back}
     >
         back
       </Button>
        <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{width:'20%',marginTop:20}}
+    variant="contained" color="primary"  size="large"  style={{float:'right',width:'20%',marginTop:20,borderRadius:20}}
     // className={classes.button}
     onClick={this.props.next}
     >

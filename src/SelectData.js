@@ -8,8 +8,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Input from '@material-ui/core/Input';
+// import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
+import { Grid, Input, Select } from 'react-spreadsheet-grid'
 
 
 function createData(name, calories, fat, carbs, protein) {
@@ -30,6 +31,12 @@ const styles = theme=> ({
   },
 });
 
+const rowss=[
+  { id: 'user1', name: 'John Doe', positionId: 'position1' },
+  { id: 'user1', name: 'John Doe', positionId: 'position1' },
+  { id: 'user1', name: 'John Doe', positionId: 'position1' },
+  // and so on...
+];
 
 class SelectData extends Component {
 
@@ -54,11 +61,11 @@ class SelectData extends Component {
 
 <h2 style={{marginLeft:'5%',color:'#3f51b5'}}>Select and Unselect data for your Blog</h2>
 
-        <iframe class='iframes' style={{marginLeft:'7.5%'}} height="300px" width="95%" src={this.props.url}></iframe>
+        <iframe class='iframes' style={{marginLeft:'2.5%'}} height="300px" width="95%" src={this.props.url}></iframe>
     
         <h2 style={{marginLeft:'5%',color:'#3f51b5'}}>Selected Data for your Blog</h2>
 
-        <Paper style={{marginLeft:'7.5%',width:'50%',marginTop:20}}>
+        {/* <Paper style={{marginLeft:'25%',width:'50%',marginTop:20}}>
       <Table  aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -71,7 +78,6 @@ class SelectData extends Component {
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
               <Input
-        // defaultValue="Hello world"
         className={classes.input}
         inputProps={{
           'aria-label': 'description',
@@ -83,21 +89,52 @@ class SelectData extends Component {
           ))}
         </TableBody>
       </Table>
-    </Paper>
+    </Paper> */}
+
+<Grid 
+
+        columns={[
+          {
+            title: () => 'Name', 
+            value: (row, { focus }) => {
+                return (
+                    <Input  
+                      value={row.name}
+                      focus={focus}
+                    />
+                );
+            }
+          }, {
+            title: () => 'Position',
+            value: (row, { focus }) => {
+                return (
+                    <Input  
+                      value={row.positionId}
+                      isOpen={focus}
+                      // items={somePositions}
+                    />
+                );
+            }
+          }
+        ]}
+        
+        rows={rowss}
+        getRowKey={row => row.id}
+      />
 
 
     <br />
-    <div>
+    <div >
 
         <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{width:'20%',marginRight:'4.5%',marginLeft:'7.2%',marginTop:20}}
+    variant="contained" color="primary"  size="large"  style={{float:'left',width:'20%',borderRadius:20,marginLeft:'2%',marginTop:20}}
     // className={classes.button}
     onClick={this.props.back}
     >
         back
       </Button>
        <Button type="submit"
-    variant="contained" color="primary"  size="large"  style={{width:'20%',marginTop:20}}
+    variant="contained" color="primary"  size="large"  style={{float:'right',width:'20%',borderRadius:20,marginTop:20}}
     // className={classes.button}
     onClick={this.props.next}
     >

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './App.css';
+import '../App.css';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -79,7 +79,7 @@ const styles = theme=> ({
   },
 });
 
- class StartPage extends Component {
+ class Profile extends Component {
 constructor(props){
     super(props);
     this.state={
@@ -110,12 +110,12 @@ Create()
   this.props.history.push('/Manage');
 
 }
-Profile=()=>{
-  this.props.history.push('/Profile');
+StartPage=()=>{
+    this.props.history.push('/StartPage');
 }
 Setting=()=>{
-  this.props.history.push('/Setting');
-}
+    this.props.history.push('/Setting');
+  }
   render(){
 const {classes}=this.props;
   return (
@@ -148,22 +148,22 @@ const {classes}=this.props;
         <Divider /> */}
             <Divider style={{marginTop:20}}/>
         <List>            
-            <ListItem button  style={{marginTop:45}}>
-              <ListItemIcon> <MailIcon color='primary'/></ListItemIcon>
+            <ListItem button onClick={this.StartPage.bind(this)} style={{marginTop:45}}>
+              <ListItemIcon> <MailIcon /></ListItemIcon>
               {/* <ListItemText style={{fontSize:16,fontWeight:'600'}}>Manage</ListItemText> */}
               <ListItemText
         disableTypography
-        primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>Home</Typography>}
+        primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Home</Typography>}
       />
             </ListItem>
         </List>
         <Divider style={{marginTop:-5}}/>
         <List>            
-            <ListItem button onClick={this.Profile.bind(this)} style={{marginTop:5}}>
-              <ListItemIcon> <Person /></ListItemIcon>
+            <ListItem button  style={{marginTop:5}}>
+              <ListItemIcon> <Person color='primary'/></ListItemIcon>
               <ListItemText
         disableTypography
-        primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'gray' }}>Profile</Typography>}
+        primary={<Typography type="body2" style={{ fontSize:16,fontWeight:'600',color:'#3f51b5' }}>Profile</Typography>}
       />
               {/* <ListItemText >Profile</ListItemText> */}
             </ListItem>
@@ -207,7 +207,7 @@ const {classes}=this.props;
         })}
       >
  <div style={{marginTop:'30%',marginLeft:'40%' }}>
-   <h1>Home Page</h1>
+ <h1>Profile Page</h1>
       </div>
       </main>
     </div>
@@ -228,5 +228,5 @@ function mapDispatchToProp(dispatch) {
   })
 }
 
-export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(StartPage));
+export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(Profile));
 

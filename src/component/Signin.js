@@ -99,6 +99,9 @@ if (email !== '', password !== '') {
   }
 
 }
+GoSignUp=()=>{
+    this.props.history.push('/Signup');
+}
    
     render()
     {
@@ -156,10 +159,10 @@ if (email !== '', password !== '') {
         />
         </Grid>
         <Grid item xs={12}>
-        <FormControlLabel
+        {/* <FormControlLabel
         control={<Checkbox value="allowExtraEmails" color="primary" />}
         label="I want to receive inspiration, marketing promotions and updates via email."
-        />
+        /> */}
         </Grid>
         </Grid>
         <Button
@@ -169,10 +172,13 @@ if (email !== '', password !== '') {
         color="primary"
         className={classes.submit}
         onClick={this.signin}>SignIn</Button>
+                <Typography onClick={this.GoSignUp.bind(this)} component="h6" variant="h6" style={{fontSize:14,color:'#3f51b5',fontWeight:'600',textAlign:'center'}}>
+                Want to Join Us , Sign Up ?
+        </Typography>
         </form>
         </div>
         <Box mt={5}>
-        <Copyright />
+        {/* <Copyright /> */}
         </Box>
         </Container>
        

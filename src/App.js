@@ -99,7 +99,14 @@ componentWillUnmount(){
 // }
 // this.props.carousalInfo(data)
 }
-
+Next=()=>{
+  if(this.state.carousalName !='' && this.state.url !=''){
+    this.props.next();
+  }
+  else{
+    alert('Enter Carousel and URL')
+  }
+}
   render(){
    console.log(this.props,'props')
   return (
@@ -157,7 +164,9 @@ componentWillUnmount(){
        <Button type="submit"
     variant="contained" color="primary"  size="large"  style={{width:'30%',marginTop:20}}
     // className={classes.button}
-    onClick={this.props.next}
+    // onClick={this.props.next}
+    onClick={this.Next.bind(this)}
+    // onClick={ (this.state.carousalName !='' || this.state.url !='') ? this.props.next : alert('Enter Carousel Name and URL ') }
     >
       <b>
         next
