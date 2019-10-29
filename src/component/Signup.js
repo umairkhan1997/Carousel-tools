@@ -21,6 +21,7 @@ import Logo from '../Asset/loader.gif';
 import Signin from './Signin';
 import {SignupInfo} from '../store/action/action'
 import {connect} from 'react-redux';
+import '../App.css';
 
 function Copyright() {
   return (
@@ -76,7 +77,10 @@ class Signup extends Component {
       Lastname: '',
       email: '',
       password: '',
-      Logo: false
+      Logo: false,
+      fnames:false,
+      lastNames:false,
+      emails:false,passwords:false
 
 
     }
@@ -87,8 +91,45 @@ class Signup extends Component {
 
   async signup() {
 
-    const { email, password, Firstname, Lastname } = this.state;
-    if (email !== '', password !== '', Firstname !== '', Lastname !== '') {
+    const { email, password, Firstname, Lastname,emails, passwords, fnames, lastNames } = this.state;
+     if ( Firstname == '') {
+      this.setState({
+        fnames:true
+      },()=>{
+        setInterval(() => {
+            this.setState({fnames:false,text:'Coudnot recognize  your email'})
+         }, 4000);
+      })
+          }
+          else if ( Lastname == '') {
+            this.setState({
+              lastNames:true
+            },()=>{
+              setInterval(() => {
+                  this.setState({lastNames:false,text:'Coudnot recognize  your email'})
+               }, 4000);
+            })
+                }
+    else if (email == '') {
+this.setState({
+  emails:true
+},()=>{
+  setInterval(() => {
+      this.setState({emails:false,text:'Coudnot recognize  your email'})
+   }, 4000);
+})
+    }
+    else if ( password == '') {
+      this.setState({
+        passwords:true
+      },()=>{
+        setInterval(() => {
+            this.setState({passwords:false,text:'Coudnot recognize  your email'})
+         }, 4000);
+      })
+          }
+  
+  else if (email !== '', password !== '', Firstname !== '', Lastname !== '') {
     console.log(email,password,Firstname,Lastname)
     let Userdata=
     {
@@ -117,9 +158,9 @@ class Signup extends Component {
         <div className={classes.root}>
           <AppBar position="static">
             <Toolbar variant="dense">
-              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 <MenuIcon />
-              </IconButton>
+              </IconButton> */}
               <Typography variant="h6" color="inherit">
                 Welcome To Signup Page
           </Typography>
@@ -139,6 +180,7 @@ class Signup extends Component {
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
+                     error={this.state.fnames}
                       autoComplete="fname"
                       name="firstName"
                       variant="outlined"
@@ -149,9 +191,14 @@ class Signup extends Component {
                       autoFocus
                       onChange={(e) => { this.setState({ Firstname: e.target.value }) }}
                     />
+                       {
+            this.state.fnames?
+            <h4 style={{color:'red',fontSize:10,marginLeft:20,marginTop:5}}>Enter First Name</h4>:null
+        }
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
+                  error={this.state.lastNames}
                       variant="outlined"
                       required
                       fullWidth
@@ -162,9 +209,14 @@ class Signup extends Component {
                       onChange={(e) => { this.setState({ Lastname: e.target.value }) }}
 
                     />
+                                {
+            this.state.lastNames?
+            <h4 style={{color:'red',fontSize:10,marginLeft:20,marginTop:5}}>Enter Last Name</h4>:null
+        }
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                      error={this.state.emails}
                       variant="outlined"
                       required
                       fullWidth
@@ -174,9 +226,14 @@ class Signup extends Component {
                       autoComplete="email"
                       onChange={(e) => { this.setState({ email: e.target.value }) }}
                     />
+                                          {
+            this.state.emails?
+            <h4 style={{color:'red',fontSize:10,marginLeft:20,marginTop:5}}>Enter Email</h4>:null
+        }
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                    error={this.state.passwords}
                       variant="outlined"
                       required
                       fullWidth
@@ -187,6 +244,10 @@ class Signup extends Component {
                       autoComplete="current-password"
                       onChange={(e) => { this.setState({ password: e.target.value }) }}
                     />
+                                                        {
+            this.state.passwords?
+            <h4 style={{color:'red',fontSize:10,marginLeft:20,marginTop:5}}>Enter Password</h4>:null
+        }
                   </Grid>
                   {/* <Grid item xs={12}>
                     <FormControlLabel
@@ -204,9 +265,19 @@ class Signup extends Component {
                   onClick={this.signup}>
                   Sign Up
           </Button>
-          <Typography onClick={this.GoSignIn.bind(this)} component="h6" variant="h6" style={{fontSize:14,color:'#3f51b5',fontWeight:'600',textAlign:'center'}}>
+          {/* <Typography onClick={this.GoSignIn.bind(this)} component="h6" variant="h6" style={{fontSize:14,color:'#3f51b5',fontWeight:'600',textAlign:'center'}}>
                 Already Joined Us , Sign In ?
+        </Typography> */}
+
+        <Toolbar style={{marginLeft:60,marginTop:-20}}>
+                     <Typography  component="h6" variant="h6" style={{fontSize:14,color:'gray',fontWeight:'600',textAlign:'center'}}>
+                     Already Joined Us , &nbsp;
         </Typography>
+        <Typography className='typo' onClick={this.GoSignIn.bind(this)} component="h6" variant="h6" style={{fontSize:14,color:'#3f51b5',fontWeight:'600',textAlign:'center'}}>
+        Sign In ?
+        </Typography>
+        </Toolbar>
+
                 <Grid container justify="flex-end">
 
 

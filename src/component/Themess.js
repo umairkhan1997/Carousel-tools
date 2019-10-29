@@ -10,8 +10,9 @@ import ThemeOne from '../Blog_theme_one/App'
 import ThemeTwo from '../theme_two_three/theme_2'
 import ThemeThree from '../theme_two_three/theme-3'
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { firebase} from '../Config/Firebase';
 // import { thisExpression } from '@babel/types';
-
 const styles=(theme => ({
     container: {
         display: 'flex',
@@ -52,24 +53,33 @@ let comp=[];
 for(var i=0;i<newvalue;i++){
     comp.push(<p style={{width:200,height:200,backgroundColor:"red"}}></p>);
 }
-
 return comp;
     }
-
+    Finish=()=>{
+        this.props.next();
+        const {SelectedTheme,SelecteCard,  carousalName,url} = this.props;
+        let carouselDetail={
+            SelectedTheme,SelecteCard,  carousalName,url
+        }
+        const user=firebase.auth().currentUser.uid;
+        console.log("user=========>",user)
+        firebase.database().ref(`${user}/`).child(`Carousel/`).child(`${carousalName}/`).push(carouselDetail)
+    }
     render() { 
+        console.log(this.props.SelectedTheme,'themess pages')
         const {classes}=this.props;
         return ( 
         <div>
   {
 
- this.state.themeOne ?     
+ this.props.SelectedTheme == 0 ?     
       <ThemeOne />
       :
       null
 }
  {
 
-this.state.themeTwo ?     
+this.props.SelectedTheme == 1 ?     
      <ThemeTwo />
       :
       null
@@ -77,7 +87,7 @@ this.state.themeTwo ?
 
   {
 
-this.state.themeThree ?     
+this.props.SelectedTheme == 2 ?     
      <ThemeThree />
       :
       null
@@ -94,7 +104,7 @@ back */}
 <Button type="submit"
 variant="contained" color="primary"  size="large"  style={{float:'right',width:'20%',borderRadius:20,marginTop:20}}
 // className={classes.button}
-onClick={this.props.next}
+onClick={this.Finish.bind(this)}
 >
 Finish
 </Button>
@@ -107,4 +117,22 @@ Finish
     }
 }
  
-export default Themess;
+
+function mapStateToProp(state) {
+    return ({
+        SelectedTheme: state.root.SelectedTheme,
+        SelecteCard:state.root.SelecteCard,
+        carousalName:state.root.carousalName,
+        url:state.root.url,
+        email:state.root.email
+        
+    })
+  }
+  function mapDispatchToProp(dispatch) {
+    return ({
+        // SelectedCard: (data) => { dispatch(SelectedCard(data)) }
+    })
+  }
+  
+  export default connect(mapStateToProp, mapDispatchToProp)(Themess);
+  

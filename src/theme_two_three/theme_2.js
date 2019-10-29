@@ -1,7 +1,7 @@
 
 
 
-import React from 'react';
+import React,{Component} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -16,7 +16,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-
+// import React,{Component} from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -30,7 +32,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -60,13 +62,27 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
-}));
+});
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [];
 
-export default function Album() {
-  const classes = useStyles();
+// export default function Album() {
+  class Album extends Component {
 
+    componentWillMount(){
+      for(let i=1;i<=this.props.SelecteCard;i++)
+    {
+      cards.push(parseInt(i));
+      this.setState({
+        cardNumber:cards
+      })
+      console.log(i,'i')
+    }
+    }
+  // const classes = useStyles();
+  render() { 
+    // const classes = useStyles();
+    const {classes}=this.props;
   return (
     <React.Fragment>
       <CssBaseline />
@@ -128,4 +144,19 @@ export default function Album() {
       {/* End footer */}
     </React.Fragment>
   );
+                }
 }
+
+
+function mapStateToProp(state) {
+  return ({
+    SelecteCard: state.root.SelecteCard,
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+      // carousalInfo: (data) => { dispatch(carousalInfo(data)) }
+  })
+}
+export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(Album));
+// export default Album;

@@ -1,15 +1,15 @@
 import * as firebase from 'firebase';
 import history from '../history'
 import Swal from 'sweetalert2';
-var firebaseConfig = {
-    apiKey: "AIzaSyAiF1TLmawl3_lP55X6ZEFH1yE0sIq-6Nc",
-    authDomain: "carousel-4ddbf.firebaseapp.com",
-    databaseURL: "https://carousel-4ddbf.firebaseio.com",
-    projectId: "carousel-4ddbf",
-    storageBucket: "carousel-4ddbf.appspot.com",
-    messagingSenderId: "449537455150",
-    appId: "1:449537455150:web:07cd07dd482eaac5c1dbbf",
-    measurementId: "G-X8XRFPPZ35"
+  var firebaseConfig = {
+    apiKey: "AIzaSyDwA_90a3qIAzqMXH4OJxGY4hBffiMj2HM",
+    authDomain: "carousel-7b5b3.firebaseapp.com",
+    databaseURL: "https://carousel-7b5b3.firebaseio.com",
+    projectId: "carousel-7b5b3",
+    storageBucket: "carousel-7b5b3.appspot.com",
+    messagingSenderId: "971844895606",
+    appId: "1:971844895606:web:70c58496ff4bff43bc7057",
+    measurementId: "G-CJXK09GL99"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -37,12 +37,13 @@ var firebaseConfig = {
             Firstname,
             Lastname
         }
+       // firebase.database().ref('UserInfo/').push(userobject);
        var userkey= firebase.database().ref('UserInfo/').push(userobject).key;
        console.log(userkey,'authValues')
-       history.push('/SignIn')
+       history.push('/')
        Swal.fire({
         title:'Sucess',
-        text:'Successfully Sign Un',
+        text:'Successfully Sign Up',
         icon:'success',
         button:'Go'
        })

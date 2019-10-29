@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     carousalName: "",
     url: "",
     email:'',
-    Firstname:'',LastName:''
+    Firstname:'',LastName:'',SelectedTheme:0,SelecteCard:1
 
 }
 
@@ -46,6 +46,25 @@ export default (state = INITIAL_STATE, action) => {
                     Firstname:action.payload.Firstname,
                     LastName:action.payload.LastName,
                 })
+                case ActionTypes.SelectedTheme:
+                        console.log(action.payload,'SelectedTheme')
+                    return({
+                        ...state,
+                        SelectedTheme:action.payload
+                    })
+                    case ActionTypes.SelecteCard:
+                            console.log(action.payload,'SelecteCard')
+                        return({
+                            ...state,
+                            SelecteCard:action.payload
+                        })
+                        case ActionTypes.SignInInfo:
+                            console.log(action.payload,'SignInInfo')
+                        return({
+                            ...state,
+                            email:action.payload
+                        })
+
         default:
             return state;
     }

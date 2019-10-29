@@ -14,6 +14,7 @@ import img2 from './images/themetwo.PNG'
 import img3 from './images/themethree.PNG'
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { SelectedThemess } from './store/action/action';
 
 const tutorialSteps = [
     {
@@ -68,10 +69,18 @@ class SelectTheme extends Component {
 }
 
  handleNext = () => {
+  this.props.SelectedThemess(this.state.selectedTheme)
+  console.log('asdasdasdasdas')
+  this.props.next()
     // setActiveStep(prevActiveStep => prevActiveStep + 1);
 this.setState({
-    activeStep:this.state.activeStep + 1
-})  
+ //   activeStep:this.state.activeStep + 1
+}, () =>{
+  // this.props.SelectedThemess(this.state.selectedTheme)
+  // console.log('asdasdasdasdas')
+}
+)  
+// this.props.back()
 };
 
    handleBack = () => {
@@ -131,23 +140,23 @@ this.setState({
 <div style={{width:"80%" ,marginLeft:'12%', height:'50%'}}>
 
 <Carousel selectedItem={this.state.selectedTheme} onClickThumb={this.handlerH.bind(this)}>
-<div style={{height:'100%'}} onClick={this.SelectThemes.bind(this)} > 
+<div style={{height:'100%'}}  > 
   <img src={require("./images/themeone.PNG")} style={{height:'100%'}} />
   <p className="legend">Theme 1</p>
 </div>
-<div style={{height:'100%'}} onClick={this.props.next}>
+<div style={{height:'100%'}} >
   <img src= {require("./images/themetwo.PNG")} style={{height:'100%'}}/>
   <p className="legend">Theme 2</p>
 </div>
-<div style={{height:'100%'}} onClick={this.props.next}>
+<div style={{height:'100%'}} >
   <img src={require("./images/themethree.PNG")} style={{height:'100%'}}/>
   <p className="legend">Theme 3</p>
 </div>
-<div style={{height:'100%'}} onClick={this.props.next}>
+<div style={{height:'100%'}} >
   <img src={require("./images/themeone.PNG")} style={{height:'100%'}}/>
   <p className="legend">Theme 4</p>
 </div>
-<div style={{height:'100%'}} onClick={this.props.next}>
+<div style={{height:'100%'}} >
   <img src={require("./images/themetwo.PNG")} style={{height:'100%'}}/>
   <p className="legend">Theme 5</p>
 </div>
@@ -169,7 +178,7 @@ this.setState({
        <Button type="submit"
     variant="contained" color="primary"  size="large"  style={{float:'right',width:'20%',marginTop:20,borderRadius:20}}
     // className={classes.button}
-    onClick={this.props.next}
+    onClick={this.handleNext.bind(this)}
     >
         next
       </Button>
@@ -187,7 +196,7 @@ function mapStateToProp(state) {
 }
 function mapDispatchToProp(dispatch) {
   return ({
-      // carousalInfo: (data) => { dispatch(carousalInfo(data)) }
+       SelectedThemess: (data) => { dispatch(SelectedThemess(data)) }
   })
 }
 

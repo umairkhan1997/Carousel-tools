@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{Component} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -15,6 +15,8 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 function Copyright() {
   return (
@@ -29,7 +31,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
@@ -76,9 +78,10 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: theme.spacing(6),
     },
   },
-}));
+});
 
-const tiers = [
+const tiers = []
+const tiersss = [
   {
     title: 'Blog 1',
     price: '0',
@@ -136,9 +139,25 @@ const footers = [
   },
 ];
 
-export default function Pricing() {
-  const classes = useStyles();
+// export default function Pricing() {
+  class Pricing extends Component {
+  // const classes = useStyles();
 
+
+  componentWillMount(){
+    for(let i=1;i<=this.props.SelecteCard;i++)
+  {
+    tiers.push(parseInt(i));
+    this.setState({
+      cardNumber:tiers
+    })
+    console.log(i,'i')
+  }
+  }
+// const classes = useStyles();
+render() { 
+  // const classes = useStyles();
+  const {classes}=this.props;
   return (
     <React.Fragment>
       <CssBaseline />
@@ -181,8 +200,7 @@ export default function Pricing() {
             <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
               <Card>
                 <CardHeader
-                  title={tier.title}
-                  subheader={tier.subheader}
+                  title='A sophisticated blog page'
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
                   action={tier.title === 'Pro' ? <StarIcon /> : null}
@@ -191,23 +209,29 @@ export default function Pricing() {
                 <CardContent>
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
-                      ${tier.price}
+                      $0
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
                       /mo
                     </Typography>
                   </div>
                   <ul>
-                    {tier.description.map(line => (
+                    {/* {tier.description.map(line => (
                       <Typography component="li" variant="subtitle1" align="center" key={line}>
                         {line}
                       </Typography>
-                    ))}
+                    ))} */}
+                      <Typography>
+                      This is a media card. You can use this section to describe the content.
+                    </Typography>
+                    <Typography>
+                      This is a media card. You can use this section to describe the content.
+                    </Typography>
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} color="primary">
-                    {tier.buttonText}
+                  <Button fullWidth variant='outlined' color="primary">
+                Click Here
                   </Button>
                 </CardActions>
               </Card>
@@ -243,3 +267,16 @@ export default function Pricing() {
     </React.Fragment>
   );
 }
+  }
+  
+function mapStateToProp(state) {
+  return ({
+    SelecteCard: state.root.SelecteCard,
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+      // carousalInfo: (data) => { dispatch(carousalInfo(data)) }
+  })
+}
+export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(Pricing));

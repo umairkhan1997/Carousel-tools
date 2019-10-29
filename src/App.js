@@ -108,7 +108,7 @@ Next=()=>{
   }
 }
   render(){
-   console.log(this.props,'props')
+   console.log(this.props.email,'props')
   return (
    
     <div className="App">
@@ -184,7 +184,8 @@ Next=()=>{
 function mapStateToProp(state) {
   return ({
     carousalName: state.root.carousalName,
-    url:state.root.url
+    url:state.root.url,
+    email:state.root.email
   })
 }
 function mapDispatchToProp(dispatch) {

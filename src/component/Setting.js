@@ -22,7 +22,8 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Settings from '@material-ui/icons/Settings';
 import Person from '@material-ui/icons/Person';
-
+import Button from '@material-ui/core/Button';
+import { firebase} from '../Config/Firebase';
 
 const drawerWidth = 240;
 
@@ -116,6 +117,14 @@ StartPage=()=>{
 Profile=()=>{
     this.props.history.push('/Profile');
   }
+  SignOut=()=>{
+    this.props.history.push('/');
+    firebase.auth().signOut().then(function() {
+      console.log('Signed Out');
+    }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+  }
   render(){
 const {classes}=this.props;
   return (
@@ -125,10 +134,11 @@ const {classes}=this.props;
         position="fixed"
         className={classes.appBar}
       >
-        <Toolbar>
+        <Toolbar style={{flexDirection:'row',justifyContent:'space-between'}}>
           <Typography variant="h6" noWrap>
             Carousel - Tool
           </Typography>
+          <Button onClick={this.SignOut.bind(this)} color="inherit">Sign Out</Button>
         </Toolbar>
       </AppBar>
       <Drawer

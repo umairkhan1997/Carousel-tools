@@ -96,3 +96,11 @@
   flex-direction: row;
   justify-content: space-around;
 }
+.divs{
+  flex-direction: row;
+}
+
+.typo{
+  cursor:pointer;
+  text-decoration: underline;
+}

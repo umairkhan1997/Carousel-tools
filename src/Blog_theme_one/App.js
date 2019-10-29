@@ -138,7 +138,7 @@
 // export default connect(mapStateToProp, mapDispatchToProp)(App)  ;
 
 
-import React from 'react';
+import React,{Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -158,8 +158,10 @@ import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import Markdown from './Markdown';
 import post1 from './blog-post.1.md';
+import { withStyles } from '@material-ui/core/styles';
 // import post2 from './blog-post.2.md';
 // import post3 from './blog-post.3.md';
+import { connect } from 'react-redux';
 
 function Copyright() {
   return (
@@ -174,7 +176,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
@@ -243,7 +245,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(8),
     padding: theme.spacing(6, 0),
   },
-}));
+});
 
 const sections = [
   'Technology',
@@ -258,7 +260,9 @@ const sections = [
   'Travel',
 ];
 
-const featuredPosts = [
+const featuredPosts = []
+
+const featuredPostss = [
   {
     title: 'Featured post',
     date: 'Nov 12',
@@ -292,9 +296,32 @@ const archives = [
 
 const social = ['GitHub', 'Twitter', 'Facebook'];
 
-export default function Blog() {
-  const classes = useStyles();
+//  function Blog() {
+  class Blog extends Component {
+    constructor(props) {
+      super(props);
+      this.state = { 
+      EmailVerified:false,
+cardNumber:[]
+       }
+       
+  }
 
+  componentWillMount(){
+    for(let i=1;i<=this.props.SelecteCard;i++)
+	{
+    featuredPosts.push(parseInt(i));
+    this.setState({
+      cardNumber:featuredPosts
+    })
+    console.log(i,'i')
+	}
+  }
+  render() { 
+  // const classes = useStyles();
+  const {classes}=this.props;
+console.log(this.state.cardNumber,'ossosososo')
+console.log( featuredPosts,'featuredPosts')
   return (
     <React.Fragment>
       <CssBaseline />
@@ -365,19 +392,19 @@ export default function Blog() {
           {/* Sub featured posts */}
           <Grid container spacing={4}>
             {featuredPosts.map(post => (
-              <Grid item key={post.title} xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <CardActionArea component="a" href="#">
                   <Card className={classes.card}>
                     <div className={classes.cardDetails}>
                       <CardContent>
                         <Typography component="h2" variant="h5">
-                          {post.title}
+                        Featured post
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary">
-                          {post.date}
+                        Nov 12
                         </Typography>
                         <Typography variant="subtitle1" paragraph>
-                          {post.description}
+                        This is a wider card with supporting text below as a natural lead-in to additional content
                         </Typography>
                         <Typography variant="subtitle1" color="primary">
                           Continue reading...
@@ -398,9 +425,9 @@ export default function Blog() {
           </Grid>
           {/* End sub featured posts */}
           <Grid container spacing={5} className={classes.mainGrid}>
-            {/* Main content */}
+         
             <Grid item xs={12} md={8}>
-              <Typography variant="h6" gutterBottom>
+              {/* <Typography variant="h6" gutterBottom>
                 From the Firehose
               </Typography>
               <Divider />
@@ -408,7 +435,7 @@ export default function Blog() {
                 <Markdown className={classes.markdown} key={post.substring(0, 40)}>
                   {post}
                 </Markdown>
-              ))}
+              ))} */}
             </Grid>
             {/* End main content */}
             {/* Sidebar */}
@@ -447,4 +474,19 @@ export default function Blog() {
       {/* End footer */}
     </React.Fragment>
   );
+              }
 }
+
+function mapStateToProp(state) {
+  return ({
+    SelecteCard: state.root.SelecteCard,
+  })
+}
+function mapDispatchToProp(dispatch) {
+  return ({
+      // carousalInfo: (data) => { dispatch(carousalInfo(data)) }
+  })
+}
+
+export default connect(mapStateToProp,mapDispatchToProp)(withStyles(styles)(Blog));
+

@@ -7,6 +7,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { width } from '@material-ui/system';
 import { red } from '@material-ui/core/colors';
 import Button from '@material-ui/core/Button';
+import { SelectedCard } from '../store/action/action';
+import { connect } from 'react-redux';
 // import { thisExpression } from '@babel/types';
 
 const styles=(theme => ({
@@ -27,8 +29,8 @@ class Config extends Component {
         super(props);
         this.state = {  
         value:[],
-        newvalue:''
-
+        newvalue:'',
+        selectedTheme:1
         }
     
     }
@@ -38,7 +40,7 @@ class Config extends Component {
 
         var value=e.target.value
         this.setState({newvalue:value})
-        
+        this.props.SelectedCard(value)
        
       
     }
@@ -106,4 +108,17 @@ next
     }
 }
  
-export default Config;
+function mapStateToProp(state) {
+    return ({
+      carousalName: state.root.carousalName,
+      url:state.root.url
+    })
+  }
+  function mapDispatchToProp(dispatch) {
+    return ({
+        SelectedCard: (data) => { dispatch(SelectedCard(data)) }
+    })
+  }
+  
+  export default connect(mapStateToProp, mapDispatchToProp)(Config);
+  

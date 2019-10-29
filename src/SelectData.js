@@ -32,9 +32,9 @@ const styles = theme=> ({
 });
 
 const rowss=[
-  { id: 'user1', name: 'John Doe', positionId: 'position1' },
-  { id: 'user1', name: 'John Doe', positionId: 'position1' },
-  { id: 'user1', name: 'John Doe', positionId: 'position1' },
+  { id: 'user1', name: '', positionId: 'position1' },
+  { id: 'user1', name: '', positionId: 'position1' },
+  { id: 'user1', name: '', positionId: 'position1' },
   // and so on...
 ];
 
@@ -99,18 +99,21 @@ class SelectData extends Component {
             value: (row, { focus }) => {
                 return (
                     <Input  
+placeholder='Enter Name'
                       value={row.name}
                       focus={focus}
+                      style={{fontWeight:'bold'}}
                     />
                 );
             }
           }, {
-            title: () => 'Position',
+            title: () => 'Extracted Data',
             value: (row, { focus }) => {
                 return (
-                    <Input  
+                    <Input  disabled
                       value={row.positionId}
                       isOpen={focus}
+                      style={{color:'gray'}}
                       // items={somePositions}
                     />
                 );
