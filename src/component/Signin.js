@@ -305,6 +305,15 @@ try {
                 }, 2000);
             })
         } 
+        
+        else if(error.message === 'There is no user record corresponding to this identifier. The user may have been deleted.'){
+
+            this.setState({emailerror:true,text:'Coudnot recognize  your email'},()=>{
+                setInterval(() => {
+                    this.setState({emailerror:false,text:'Coudnot recognize  your email'})
+                 }, 2000);
+             })
+         } 
         else if(error.message==='The password is invalid or the user does not have a password.'){
             this.setState({check:true,text:'Coudnot recognize  your email'},()=>{
                 setInterval(() => {
